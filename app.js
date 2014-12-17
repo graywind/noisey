@@ -1,13 +1,11 @@
 // npm install jquery, jplayer, and mime on most systems
 
-var fs = require('fs'),
-		util = require('util');
+var fs = require('fs');
+var util = require('util');
 
 var path = require('path');
-
 var mime = require('mime');
 var mkdirp = require('mkdirp');
-
 var wrench = require('wrench');
 
 
@@ -21,6 +19,10 @@ var fileName = destPath + '/test.html';
 
 var jqueryFile = 'node_modules/jquery/dist/jquery.js';
 var jplayerFile = 'node_modules/jplayer/dist/jplayer/jquery.jplayer.js';
+
+String.prototype.cleanup = function() {
+   return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+}
 
 function copyme(oldPath, newPath) {
 	newFile = fs.createWriteStream(newPath);
@@ -45,12 +47,28 @@ function buildHtml(req) {
   var header = fs.readFileSync('head.html','utf8');
   var body = fs.readFileSync('body.html','utf8');
 
-  // concatenate header string
-  // concatenate body string
-
   return '<!DOCTYPE html>'
        + '<html><header><meta http-equiv="Content-Type" content="text/html; charset=utf-8">' + supportingCode + header + '</header><body>' + body + '</body></html>';
 };
+
+
+function webpath(origPath)
+{
+	var pathArray = origPath.split(path.sep);
+	var newPath = '/';
+	var index;
+	for (index = 0; index < pathArray.length; ++index) {
+		console.log(pathArray[index]);
+		newPath = newPath + encodeURIComponent(pathArray[index]);
+
+		// Add the separator if needed from a deep dir;
+		if (index + 1 < pathArray.length)
+	    {
+			newPath = newPath + '/';
+		}
+	}
+	return newPath;	
+}
 
 
 
@@ -85,13 +103,17 @@ for (index = 0; index < mylist.length; ++index) {
 		var soundParent = path.dirname(path.relative(soundPath, soundPath + mylist[index]));
 		if (root === soundParent) {
 			// Do stuff with sound files in root path here.
-			
+			var myclass = ".root"
+			console.log('Assigned class: ' + myclass);
 		}
 		else {
 			// Do stuff with sound files outside root path.
+			var myclass = soundParent.cleanup();
+			console.log('Assigned class: ' + ".nonroot-" + myclass);
+			console.log(webpath(soundParent));
 		}
 		
-		//console.log( path.dirname(path.relative(destPath + '/sample_sounds/', destPath + '/sample_sounds/' + mylist[index])));
+		console.log(path.relative(destPath + '/sample_sounds/', destPath + '/sample_sounds/' + mylist[index]));
 	}
 }
 
