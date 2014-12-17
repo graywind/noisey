@@ -41,8 +41,7 @@ function base64Image(src) {
 }
 
 function buildHtml(req) {
-  var supportingCode = '';			
-	
+  var supportingCode = '';
   var header = fs.readFileSync('head.html','utf8');
   var body = fs.readFileSync('body.html','utf8');
 
@@ -98,7 +97,7 @@ var soundPath = destPath + '/sample_sounds/';
 var root = path.dirname(path.relative(soundPath, soundPath));
 for (index = 0; index < mylist.length; ++index) {
         var status = fs.statSync(soundPath + mylist[index])
-	if (status.isFile()) { 
+	if (status.isFile()) {
 		var soundParent = path.dirname(path.relative(soundPath, soundPath + mylist[index]));
 		if (root === soundParent) {
 			// Do stuff with sound files in root path here.
@@ -111,7 +110,7 @@ for (index = 0; index < mylist.length; ++index) {
 			console.log('Assigned class: ' + ".nonroot-" + myclass);
 			console.log(webpath(soundParent));
 		}
-		
+
 		console.log(path.relative(destPath + '/sample_sounds/', destPath + '/sample_sounds/' + mylist[index]));
 	}
 }
