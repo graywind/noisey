@@ -1,0 +1,22 @@
+#playerBox {
+	position: fixed;
+	bottom: 0;
+	min-height: 150px;
+	height: 10%;
+	width: 100%;
+	background-color: blue;
+}
+#bottomTest {
+	position: absolute;
+	bottom: 0;
+	height: 11%;
+	width: 100%;
+	min-height: 160px;
+	background-color: red;
+}
+#workSpace {
+	height: 100vh;
+	background-color: green;
+}
+
+h1 { margin: 0;}
