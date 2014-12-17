@@ -28,7 +28,6 @@ function copyme(oldPath, newPath) {
 	newFile = fs.createWriteStream(newPath);
 	oldFile = fs.createReadStream(oldPath);
 	oldFile.pipe(newFile);
-	
 	oldFile.on('end', function(){ console.log('Copied ' + oldPath + ' to ' + newPath)});
 }
 
