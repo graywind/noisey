@@ -67,7 +67,7 @@ function webpath(origPath)
 			newPath = newPath + '/';
 		}
 	}
-	return newPath;	
+	return newPath;
 }
 
 
