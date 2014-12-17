@@ -1,0 +1,27 @@
+{
+  "name": "Noisey",
+  "version": "0.0.0",
+  "description": "A soundboard generator that outputs static pages for easy use anywhere.",
+  "main": "app.js",
+  "dependencies": {
+    "jplayer": "~2.9.2",
+    "isotope-layout": "~2.1.0",
+    "jquery": "~2.1.2",
+    "mime": "~1.2.11",
+    "mkdirp": "~0.5.0",
+    "normalize.css": "~3.0.2",
+    "wrench": "~1.5.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/graywind/noisey.git"
+  },
+  "author": "whome",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/graywind/noisey/issues"
+  }
+}
