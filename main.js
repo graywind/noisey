@@ -1,6 +1,10 @@
 $(document).ready(function(){
 
+
+	//We need more pretty
 	$('#playerBox').hide();
+	$('.soundtile').fadeTo(0,0);
+	
 
 var jplayerCssSelector = {
 		videoPlay: '.jp-video-play',
@@ -66,4 +70,11 @@ var jplayerCssSelector = {
 
 	});
 	//$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
+});
+
+// Window load will ensure images are in place if that is a thing
+$(window).load(function() {
+    $(".soundtile").each(function(i) {
+       $(this).delay((i + 1) * 50).fadeTo("slow",1);
+    });
 });
