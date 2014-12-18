@@ -32,6 +32,13 @@ String.prototype.lazycleanup = function() {
    return this.replace(/[^a-zA-Z0-9]+/g, " ");
 }
 
+function htmlEncode(value){
+  return $('<div/>').text(value).html();
+}
+
+function htmlDecode(value){
+  return $('<div/>').html(value).text();
+}
 
 function copyme(oldPath, newPath) {
 	newFile = fs.createWriteStream(newPath);
@@ -58,7 +65,7 @@ function base64Image(src) {
 function webpath(origPath)
 {
 	var pathArray = origPath.split(path.sep);
-	var newPath = '/';
+	var newPath = '';
 	var index;
 	for (index = 0; index < pathArray.length; ++index) {
 		console.log(pathArray[index]);
@@ -104,6 +111,8 @@ function soundDiv(index, name, cssClass, path, type)
 	myDiv.attr('data-name',name);
 	myDiv.attr('data-path',path);
 	myDiv.attr('data-type','type-placeholder');
+	
+	myDiv.append('<div class="outerCenterDiv"><div class="innerCenterDiv"><p>' + htmlEncode(name) + '</p></div></div>');
 	$('#tileSpace').append('\n\t\t\t' + myDiv);
 }
 
