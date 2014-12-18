@@ -42,8 +42,13 @@ var jplayerCssSelector = {
 						$(this).jPlayer("setMedia", {
 							title: info.name,
 							wav: info.path
-						});
+						}).jPlayer("play");
 					},
+				
+				/// Loop after player
+				// ended: function() {
+				//	$(this).jPlayer("play");
+				//},
 				swfPath: '/src',
 				solution: 'html, flash',
 				supplied: 'wav',
