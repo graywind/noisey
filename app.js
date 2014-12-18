@@ -80,6 +80,10 @@ function webpath(origPath)
 	return newPath;
 }
 
+function getExtension(path) {
+	return mime.extension(mime.lookup(path));
+}
+
 
 
 mkdirp(destPath);
@@ -112,7 +116,7 @@ function soundDiv(index, name, cssClass, path, type)
 	myDiv.addClass(cssClass);
 	myDiv.attr('data-name',name);
 	myDiv.attr('data-path',path);
-	myDiv.attr('data-type','type-placeholder');
+	myDiv.attr('data-type',type);
 	
 	myDiv.append('<div class="outerCenterDiv"><div class="innerCenterDiv"><p>' + htmlEncode(name) + '</p></div></div>');
 	$('#tileSpace').append('\n\t\t\t' + myDiv);
@@ -123,9 +127,10 @@ var relSoundPath = 'sample_sounds/';
 var soundPath = path.join(destPath,relSoundPath);
 var root = path.dirname(path.relative(soundPath, soundPath));
 for (index = 0; index < mylist.length; ++index) {
-        var status = fs.statSync(path.join(soundPath,mylist[index]))
+        var status = fs.statSync(path.join(soundPath,mylist[index]));
 	if (status.isFile()) {
 		var soundParent = path.dirname(path.relative(soundPath, path.join(soundPath + mylist[index])));
+		var extension = getExtension(path.join(soundPath,mylist[index]));
 		var myClass;
 		if (root === soundParent) {
 			// Do stuff with sound files in root path here.
@@ -141,7 +146,7 @@ for (index = 0; index < mylist.length; ++index) {
 		}
 
 		console.log(path.relative(relSoundPath, relSoundPath + mylist[index]));
-		soundDiv(index, easybase(mylist[index]).lazycleanup(), myClass, webpath(path.join(relSoundPath + mylist[index])), 'type');
+		soundDiv(index, easybase(mylist[index]).lazycleanup(), myClass, webpath(path.join(relSoundPath + mylist[index])), extension);
 		console.log('type');
 
 	}

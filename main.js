@@ -57,7 +57,7 @@ var jplayerCssSelector = {
 				//},
 				swfPath: '/src',
 				solution: 'html, flash',
-				supplied: 'wav',
+				supplied: info.type,
 				preload: 'metadata',
 				volume: 1,
 				muted: false,
