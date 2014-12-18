@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 
 	//We need more pretty
-	$('#playerBox').hide();
+	$('#playerBox').fadeTo(0,0);
 	$('.soundtile').fadeTo(0,0);
 	
 
@@ -39,7 +39,7 @@ var jplayerCssSelector = {
 	
 	$('.soundtile').click(function() {
 		console.log(this.dataset);
-			$('#playerBox').fadeIn();
+			$('#playerBox').fadeTo(500,1);
 			var info = this.dataset;
 			$("#jquery_jplayer_1").jPlayer("destroy");
 			console.log(info);
@@ -75,6 +75,6 @@ var jplayerCssSelector = {
 // Window load will ensure images are in place if that is a thing
 $(window).load(function() {
     $(".soundtile").each(function(i) {
-       $(this).delay((i + 1) * 50).fadeTo("slow",1);
+       $(this).delay((i + 1) * 25).fadeTo("slow",1);
     });
 });

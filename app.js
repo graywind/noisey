@@ -98,6 +98,7 @@ copyme('node_modules/jplayer/dist/jplayer/jquery.jplayer.swf', codePath + '/jque
 copyme('node_modules/normalize.css/normalize.css', codePath + '/normalize.css');
 copyme('main.css', codePath + '/main.css');
 copyme('main.js', codePath + '/main.js');
+copyme('images/hash.png', codePath + '/hash.png');
 wrench.copyDirSyncRecursive('node_modules/jplayer/dist/skin', codePath + '/skin', {forceDelete: true});
 
 var mylist = wrench.readdirSyncRecursive(destPath + '/sample_sounds');
