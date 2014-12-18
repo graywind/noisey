@@ -8,6 +8,10 @@ var mime = require('mime');
 var mkdirp = require('mkdirp');
 var wrench = require('wrench');
 
+var cheerio = require('cheerio'),
+	$ = cheerio.load(fs.readFileSync('template.html','utf8'));
+
+console.log($.html());
 
 // Set the destination path for the html files to output
 
@@ -24,11 +28,22 @@ String.prototype.cleanup = function() {
    return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
 }
 
+String.prototype.lazycleanup = function() {
+   return this.replace(/[^a-zA-Z0-9]+/g, " ");
+}
+
+
 function copyme(oldPath, newPath) {
 	newFile = fs.createWriteStream(newPath);
 	oldFile = fs.createReadStream(oldPath);
 	oldFile.pipe(newFile);
 	oldFile.on('end', function(){ console.log('Copied ' + oldPath + ' to ' + newPath)});
+}
+
+// path.basename requires an extension to be provided to work the split, so we pass path.extname to provide it.
+function easybase(req)
+{
+	return path.basename(req,path.extname(req));
 }
 
 function readInlineScript(req) {
@@ -39,16 +54,6 @@ function base64Image(src) {
     var data = fs.readFileSync(src).toString("base64");
     return util.format("data:%s;base64,%s", mime.lookup(src), data);
 }
-
-function buildHtml(req) {
-  var supportingCode = '';
-  var header = fs.readFileSync('head.html','utf8');
-  var body = fs.readFileSync('body.html','utf8');
-
-  return '<!DOCTYPE html>'
-       + '<html><header><meta http-equiv="Content-Type" content="text/html; charset=utf-8">' + supportingCode + header + '</header><body>' + body + '</body></html>';
-};
-
 
 function webpath(origPath)
 {
@@ -90,35 +95,43 @@ wrench.copyDirSyncRecursive('node_modules/jplayer/dist/skin', codePath + '/skin'
 
 var mylist = wrench.readdirSyncRecursive(destPath + '/sample_sounds');
 
-
+function soundDiv(index, name, cssClass, path, type)
+{
+	var myDiv = $('<div />');
+	return '<div id="sound-'+index+'" class="soundtile '+cssClass+'" data-name="'+ name +'" data-path="'+path+'" data-type="'+type+'" />';
+}
 
 var index;
-var soundPath = destPath + '/sample_sounds/';
+var relSoundPath = 'sample_sounds/';
+var soundPath = path.join(destPath,relSoundPath);
 var root = path.dirname(path.relative(soundPath, soundPath));
 for (index = 0; index < mylist.length; ++index) {
-        var status = fs.statSync(soundPath + mylist[index])
+        var status = fs.statSync(path.join(soundPath,mylist[index]))
 	if (status.isFile()) {
-		var soundParent = path.dirname(path.relative(soundPath, soundPath + mylist[index]));
+		var soundParent = path.dirname(path.relative(soundPath, path.join(soundPath + mylist[index])));
+		var myClass;
 		if (root === soundParent) {
 			// Do stuff with sound files in root path here.
-			var myclass = ".root"
-			console.log('Assigned class: ' + myclass);
+			myClass = "root"
+			console.log('Assigned class: ' + myClass);
 		}
 		else {
 			// Do stuff with sound files outside root path.
-			var myclass = soundParent.cleanup();
-			console.log('Assigned class: ' + ".nonroot-" + myclass);
-			console.log(webpath(soundParent));
+			myClass = soundParent.cleanup();
+			console.log(soundPath);
+			console.log('Assigned class: ' + "nonroot-" + myClass);
+			console.log(webpath(soundPath + mylist[index]));
 		}
 
-		console.log(path.relative(destPath + '/sample_sounds/', destPath + '/sample_sounds/' + mylist[index]));
+		console.log(path.relative(relSoundPath, relSoundPath + mylist[index]));
+
+		console.log(soundDiv(index, easybase(mylist[index]).lazycleanup(), myClass, webpath(path.join(relSoundPath + mylist[index])), 'type'));
+
 	}
 }
 
 var stream = fs.createWriteStream(fileName);
 
 stream.once('open', function(fd) {
-
-  var html = buildHtml();
-  stream.end(html);
+  stream.end($.html());
 });
