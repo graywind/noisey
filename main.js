@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	$('#playerBox').hide();
+
 var jplayerCssSelector = {
 		videoPlay: '.jp-video-play',
 		play: '.jp-play',
@@ -33,7 +35,7 @@ var jplayerCssSelector = {
 	
 	$('.soundtile').click(function() {
 		console.log(this.dataset);
-			
+			$('#playerBox').fadeIn();
 			var info = this.dataset;
 			$("#jquery_jplayer_1").jPlayer("destroy");
 			console.log(info);
@@ -53,7 +55,7 @@ var jplayerCssSelector = {
 				solution: 'html, flash',
 				supplied: 'wav',
 				preload: 'metadata',
-				volume: 0.8,
+				volume: 1,
 				muted: false,
 				backgroundColor: '#000000',
 				cssSelectorAncestor: '#jp_container_1',
