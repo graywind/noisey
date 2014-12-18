@@ -14,7 +14,6 @@
 }
 #workSpace {
 	min-height: 100vh;
-	background: url(hash.png) repeat;
 }
 
 #tileSpace {
@@ -59,3 +58,4 @@ p {
 	color: ghostwhite;
 	font-size: 1.25em;
 }
+body { 	background: url(hash.png) repeat; }

@@ -95,11 +95,12 @@ copyme('node_modules/jquery/dist/jquery.min.js', codePath + '/jquery.min.js');
 copyme('node_modules/jquery/dist/jquery.min.map', codePath + '/jquery.min.map');
 copyme('node_modules/jplayer/dist/jplayer/jquery.jplayer.min.js', codePath + '/jquery.jplayer.min.js');
 copyme('node_modules/jplayer/dist/jplayer/jquery.jplayer.swf', codePath + '/jquery.jplayer.swf');
-copyme('node_modules/normalize.css/normalize.css', codePath + '/normalize.css');
+//copyme('node_modules/normalize.css/normalize.css', codePath + '/normalize.css');
 copyme('main.css', codePath + '/main.css');
 copyme('main.js', codePath + '/main.js');
 copyme('images/hash.png', codePath + '/hash.png');
 wrench.copyDirSyncRecursive('node_modules/jplayer/dist/skin', codePath + '/skin', {forceDelete: true});
+wrench.copyDirSyncRecursive('node_modules/twitter-bootstrap-3.0.0/dist', codePath + '/bootstrap', {forceDelete: true});
 
 var mylist = wrench.readdirSyncRecursive(destPath + '/sample_sounds');
 
