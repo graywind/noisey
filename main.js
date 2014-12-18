@@ -44,7 +44,11 @@ $('#jquery_jplayer_1').jPlayer({
 	warningAlerts: false
 });
 
-	console.log('I RAN!');
+	var $container = $('#tileSpace');
+	$container.isotope({
+		itemSelector: '.soundtile',
+		layoutMode: 'fitRows'
+	});
 
 	//$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
 });

@@ -11,7 +11,7 @@ var wrench = require('wrench');
 var cheerio = require('cheerio'),
 	$ = cheerio.load(fs.readFileSync('template.html','utf8'));
 
-console.log($.html());
+
 
 // Set the destination path for the html files to output
 
@@ -97,8 +97,14 @@ var mylist = wrench.readdirSyncRecursive(destPath + '/sample_sounds');
 
 function soundDiv(index, name, cssClass, path, type)
 {
-	var myDiv = $('<div />');
-	return '<div id="sound-'+index+'" class="soundtile '+cssClass+'" data-name="'+ name +'" data-path="'+path+'" data-type="'+type+'" />';
+	var myDiv = $('<div></div>');
+	myDiv.attr('id','sound-'+index);
+	myDiv.addClass('soundtile');
+	myDiv.addClass(cssClass);
+	myDiv.attr('data-name',name);
+	myDiv.attr('data-path',path);
+	myDiv.attr('data-type','type-placeholder');
+	$('#tileSpace').append('\n\t\t\t' + myDiv);
 }
 
 var index;
@@ -124,14 +130,18 @@ for (index = 0; index < mylist.length; ++index) {
 		}
 
 		console.log(path.relative(relSoundPath, relSoundPath + mylist[index]));
-
-		console.log(soundDiv(index, easybase(mylist[index]).lazycleanup(), myClass, webpath(path.join(relSoundPath + mylist[index])), 'type'));
+		soundDiv(index, easybase(mylist[index]).lazycleanup(), myClass, webpath(path.join(relSoundPath + mylist[index])), 'type');
+		console.log('type');
 
 	}
 }
+
+
+$('#tileSpace').append('\n\t\t');
 
 var stream = fs.createWriteStream(fileName);
 
 stream.once('open', function(fd) {
   stream.end($.html());
+  console.log($.html());	
 });
