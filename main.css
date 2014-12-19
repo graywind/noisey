@@ -22,6 +22,10 @@
 	height: 100%;
 }
 
+#filterList {
+	display: none;
+}
+
 .outerCenterDiv {
 	display:table;
 	width:100%;
