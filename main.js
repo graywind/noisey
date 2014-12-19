@@ -4,8 +4,8 @@ $(document).ready(function(){
 	var myMuted = false;
 
 	//We need more pretty
-	$('#playerBox').fadeTo(0,0);
-	$('.soundtile').fadeTo(0,0);
+	//$('#playerBox').fadeTo(0,0);
+	//$('.soundtile').fadeTo(0,0);
 	
 
 var jplayerCssSelector = {
