@@ -29,7 +29,7 @@ String.prototype.cleanup = function() {
 }
 
 String.prototype.lazycleanup = function() {
-   return this.replace(/[^a-zA-Z0-9]+/g, " ");
+   return this.replace(/[^a-zA-Z0-9/-]+/g, " ");
 }
 
 function htmlEncode(value){
