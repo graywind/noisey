@@ -44,7 +44,7 @@ function copyme(oldPath, newPath) {
 	newFile = fs.createWriteStream(newPath);
 	oldFile = fs.createReadStream(oldPath);
 	oldFile.pipe(newFile);
-	oldFile.on('end', function(){ console.log('Copied ' + oldPath + ' to ' + newPath)});
+	//oldFile.on('end', function(){ console.log('Copied ' + oldPath + ' to ' + newPath)});
 }
 
 // path.basename requires an extension to be provided to work the split, so we pass path.extname to provide it.
@@ -68,7 +68,7 @@ function webpath(origPath)
 	var newPath = '';
 	var index;
 	for (index = 0; index < pathArray.length; ++index) {
-		console.log(pathArray[index]);
+		//console.log(pathArray[index]);
 		newPath = newPath + encodeURIComponent(pathArray[index]);
 
 		// Add the separator if needed from a deep dir;
@@ -117,9 +117,29 @@ function soundDiv(index, name, cssClass, path, type)
 	myDiv.attr('data-name',name);
 	myDiv.attr('data-path',path);
 	myDiv.attr('data-type',type);
+	myDiv.attr('data-filter',path);
 	
 	myDiv.append('<div class="outerCenterDiv"><div class="innerCenterDiv"><p>' + htmlEncode(name) + '</p></div></div>');
+
+	soundNav(name,cssClass);
 	$('#tileSpace').append('\n\t\t\t' + myDiv);
+}	
+
+function soundNav(name,cssClass) {
+	var myClass = 'filterToggle-' + cssClass.cleanup()
+//	console.log(myClass);
+
+//	console.log($(myClass).html());
+	//console.log($.root().html().is(myClass));
+	//console.log($.root().html());
+	if ($('#' + myClass).length){
+		console.log('found');
+	}
+	else { 
+		$('#filterList').before('<li><a id="'+myClass+'" href="#">'+ htmlEncode(cssClass) +'</a></li>')
+		console.log('not found');
+	}
+	
 }
 
 var index;
@@ -139,15 +159,18 @@ for (index = 0; index < mylist.length; ++index) {
 		}
 		else {
 			// Do stuff with sound files outside root path.
-			myClass = soundParent.cleanup();
-			console.log(soundPath);
+			//myClass = soundParent.cleanup();
+			//console.log(soundPath);
 			console.log('Assigned class: ' + "nonroot-" + myClass);
-			console.log(webpath(soundPath + mylist[index]));
+			console.log(webpath(path.join(soundPath,mylist[index])));
+			var pathArray = soundParent.split(path.sep);
+			myClass = pathArray[pathArray.length - 1];
+			console.log(pathArray[pathArray.length - 1]);
 		}
 
 		console.log(path.relative(relSoundPath, relSoundPath + mylist[index]));
 		soundDiv(index, easybase(mylist[index]).lazycleanup(), myClass, webpath(path.join(relSoundPath + mylist[index])), extension);
-		console.log('type');
+		
 
 	}
 }
@@ -159,5 +182,4 @@ var stream = fs.createWriteStream(fileName);
 
 stream.once('open', function(fd) {
   stream.end($.html());
-  console.log($.html());	
 });
