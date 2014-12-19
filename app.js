@@ -113,7 +113,7 @@ function soundDiv(index, name, cssClass, path, type)
 	var myDiv = $('<div></div>');
 	myDiv.attr('id','sound-'+index);
 	myDiv.addClass('soundtile');
-	myDiv.addClass(cssClass);
+	myDiv.addClass(cssClass.cleanup());
 	myDiv.attr('data-name',name);
 	myDiv.attr('data-path',path);
 	myDiv.attr('data-type',type);
@@ -127,16 +127,12 @@ function soundDiv(index, name, cssClass, path, type)
 
 function soundNav(name,cssClass) {
 	var myClass = 'filterToggle-' + cssClass.cleanup()
-//	console.log(myClass);
 
-//	console.log($(myClass).html());
-	//console.log($.root().html().is(myClass));
-	//console.log($.root().html());
 	if ($('#' + myClass).length){
 		console.log('found');
 	}
 	else { 
-		$('#filterList').before('<li><a id="'+myClass+'" href="#">'+ htmlEncode(cssClass) +'</a></li>')
+		$('#filterList').before('<li><a id="'+myClass+'" class="filter" data-filter=".'+cssClass.cleanup()+'" href="#">'+ htmlEncode(cssClass) +'</a></li>')
 		console.log('not found');
 	}
 	

@@ -37,6 +37,14 @@ var jplayerCssSelector = {
 		layoutMode: 'fitRows'
 	});
 	
+	$('.filter').click(function() {
+		console.log(this.dataset.filter);
+		$('.filter').parent().removeClass("active");
+		$(this).parent().addClass("active");
+		//console.log(this);
+		$container.isotope({ filter: this.dataset.filter });
+	});
+
 	$('.soundtile').click(function() {
 		console.log(this.dataset);
 			$('#playerBox').fadeTo(500,1);
