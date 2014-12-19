@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	var myVolume = '0.8';
+	var myMuted = false;
 
 	//We need more pretty
 	$('#playerBox').fadeTo(0,0);
@@ -59,6 +61,10 @@ var jplayerCssSelector = {
 				ready: function (event) {
 						$(this).jPlayer("setMedia", jplayerConfig).jPlayer("play");
 					},
+				volumechange: function (event) {
+                        myVolume = event.jPlayer.options.volume,
+                        myMuted = event.jPlayer.options.muted;
+                },
 				
 				/// Loop after player
 				// ended: function() {
@@ -68,8 +74,8 @@ var jplayerCssSelector = {
 				solution: 'html, flash',
 				supplied: info.type,
 				preload: 'metadata',
-				volume: 1,
-				muted: false,
+				volume: myVolume,
+				muted: myMuted,
 				backgroundColor: '#000000',
 				cssSelectorAncestor: '#jp_container_1',
 				cssSelector: jplayerCssSelector,
