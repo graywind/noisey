@@ -151,13 +151,13 @@ for (index = 0; index < mylist.length; ++index) {
 		if (root === soundParent) {
 			// Do stuff with sound files in root path here.
 			myClass = "root"
-			console.log('Assigned class: ' + myClass);
+			//console.log('Assigned class: ' + myClass);
 		}
 		else {
 			// Do stuff with sound files outside root path.
 			//myClass = soundParent.cleanup();
 			//console.log(soundPath);
-			console.log('Assigned class: ' + "nonroot-" + myClass);
+			//console.log('Assigned class: ' + "nonroot-" + myClass);
 			console.log(webpath(path.join(soundPath,mylist[index])));
 			var pathArray = soundParent.split(path.sep);
 			myClass = pathArray[pathArray.length - 1];

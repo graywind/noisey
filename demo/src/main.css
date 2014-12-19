@@ -1,0 +1,65 @@
+#playerBox {
+	position: fixed;
+	bottom: 0;
+	height: 111px;
+	width: 100%;
+}
+#bottomTest {
+	position: absolute;
+	bottom: 0;
+	height: 11%;
+	width: 100%;
+	min-height: 160px;
+	background-color: red;
+}
+#workSpace {
+	min-height: 100vh;
+}
+
+#tileSpace {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#filterList {
+	display: none;
+}
+
+.outerCenterDiv {
+	display:table;
+	width:100%;
+	height:100%;
+	text-align:center;
+}
+.innerCenterDiv {
+	display:table-cell;
+	vertical-align:middle;
+	width: 100%;
+	padding: 10px;
+}
+
+#jp_container_1 {
+	margin-left: auto;
+	margin-right: auto;
+}
+.jp-type-single {
+	width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.soundtile {
+	background-color: black;
+	border-radius: 5px;
+	height: 150px;
+	width: 150px;
+	margin: 15px;
+	cursor: pointer;
+}
+h1 { margin: 0;}
+p {
+	color: ghostwhite;
+	font-size: 1.25em;
+}
+body { 	background: url(hash.png) repeat; }
