@@ -3,6 +3,7 @@
 	bottom: 0;
 	height: 111px;
 	width: 100%;
+	opacity: 0;
 }
 #bottomTest {
 	position: absolute;
