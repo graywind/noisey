@@ -51,12 +51,13 @@ var jplayerCssSelector = {
 			var info = this.dataset;
 			$("#jquery_jplayer_1").jPlayer("destroy");
 			console.log(info);
+		    var jplayerConfig = {};
+			jplayerConfig[info.type] = info.path;
+			jplayerConfig['title'] = info.name;
+			console.log(jplayerConfig);
 		    $('#jquery_jplayer_1').jPlayer({
 				ready: function (event) {
-						$(this).jPlayer("setMedia", {
-							title: info.name,
-							wav: info.path
-						}).jPlayer("play");
+						$(this).jPlayer("setMedia", jplayerConfig).jPlayer("play");
 					},
 				
 				/// Loop after player

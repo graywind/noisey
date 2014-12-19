@@ -17,7 +17,7 @@ var cheerio = require('cheerio'),
 
 var destPath = 'soundboard';
 
-var fileName = destPath + '/test.html';
+var fileName = destPath + '/index.html';
 
 
 
@@ -81,7 +81,18 @@ function webpath(origPath)
 }
 
 function getExtension(path) {
-	return mime.extension(mime.lookup(path));
+	var myMime = mime.extension(mime.lookup(path));
+	var myExtension;
+	switch (myMime) {
+		case 'mpga':
+			return 'mp3';
+			break;
+		case 'wav':
+			return 'wav';
+			break;
+		default:
+			console.log('I broke! Unsupported type?');
+	}
 }
 
 
