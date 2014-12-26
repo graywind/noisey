@@ -1,9 +1,12 @@
 #playerBox {
 	position: fixed;
 	bottom: 0;
-	height: 111px;
+	height: 148px;
 	width: 100%;
+	background-color: ghostwhite;
+	opacity: 0.95;
 }
+/*
 #bottomTest {
 	position: absolute;
 	bottom: 0;
@@ -12,6 +15,7 @@
 	min-height: 160px;
 	background-color: red;
 }
+*/
 #workSpace {
 	min-height: 100vh;
 }
