@@ -12,7 +12,8 @@
     "normalize.css": "~3.0.2",
     "wrench": "~1.5.8",
     "cheerio": "~0.18.0",
-    "twitter-bootstrap-3.0.0": "~3.0.0"
+    "twitter-bootstrap-3.0.0": "~3.0.0",
+    "wavesurfer.js": "~1.0.10"
   },
   "devDependencies": {},
   "scripts": {},

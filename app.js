@@ -110,6 +110,8 @@ copyme('node_modules/jquery/dist/jquery.min.js', codePath + '/jquery.min.js');
 copyme('node_modules/jquery/dist/jquery.min.map', codePath + '/jquery.min.map');
 copyme('node_modules/jplayer/dist/jplayer/jquery.jplayer.min.js', codePath + '/jquery.jplayer.min.js');
 copyme('node_modules/jplayer/dist/jplayer/jquery.jplayer.swf', codePath + '/jquery.jplayer.swf');
+copyme('node_modules/wavesurfer.js/build/wavesurfer.cjs.js', codePath + '/wavesurfer.cjs.js');
+copyme('node_modules/wavesurfer.js/plugin/wavesurfer.timeline.js', codePath + '/wavesurfer.timeline.js');
 //copyme('node_modules/normalize.css/normalize.css', codePath + '/normalize.css');
 copyme('main.css', codePath + '/main.css');
 copyme('main.js', codePath + '/main.js');
