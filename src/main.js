@@ -6,7 +6,52 @@ $(document).ready(function(){
 	//We need more pretty
 	//$('#playerBox').fadeTo(0,0);
 	//$('.soundtile').fadeTo(0,0);
-	
+
+
+
+var wavesurfer = Object.create(WaveSurfer);
+
+wavesurfer.init({
+    container: document.querySelector('#waveform'),
+    waveColor: 'blue',
+    progressColor: 'purple'
+});
+
+wavesurfer.on('ready', function () {
+    wavesurfer.play();
+});
+
+wavesurfer.on('error', function (err) {
+    console.log(err);
+});
+
+wavesurfer.on('ready', function () {
+    var timeline = Object.create(WaveSurfer.Timeline);
+
+    timeline.init({
+        wavesurfer: wavesurfer,
+        container: "#wave-timeline"
+    });
+});
+
+
+$(document).keydown(function(e){
+	switch((e.keyCode ? e.keyCode : e.which)){
+		case 32:
+			e.preventDefault();
+			wavesurfer.playPause();
+			break;
+		case 37:
+			e.preventDefault();
+			wavesurfer.skipBackward();
+			break;
+		case 39:
+			e.preventDefault();
+			wavesurfer.skipForward();
+			break;
+	}
+	//console.log('keypress: ' + e.which + '!');
+});
 
 var jplayerCssSelector = {
 		videoPlay: '.jp-video-play',
@@ -49,9 +94,9 @@ var jplayerCssSelector = {
 
 	$('.soundtile').click(function() {
 		console.log(this.dataset);
-			$('#playerBox').fadeTo(500,1);
+			//$('#playerBox').fadeTo(500,1);
 			var info = this.dataset;
-			$("#jquery_jplayer_1").jPlayer("destroy");
+			/*$("#jquery_jplayer_1").jPlayer("destroy");
 			console.log(info);
 		    var jplayerConfig = {};
 			jplayerConfig[info.type] = info.path;
@@ -81,9 +126,11 @@ var jplayerCssSelector = {
 				cssSelector: jplayerCssSelector,
 				errorAlerts: false,
 				warningAlerts: false
-			});
+			});*/
+	wavesurfer.load(info.path);
 
 	});
+	
 	//$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
 });
 
