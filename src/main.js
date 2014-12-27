@@ -53,6 +53,25 @@ $(document).keydown(function(e){
 	//console.log('keypress: ' + e.which + '!');
 });
 
+		var progressDiv = document.querySelector('#progress-bar');
+        var progressBar = progressDiv.querySelector('.progress-bar');
+
+        var showProgress = function (percent) {
+            progressDiv.style.display = 'block';
+            progressBar.style.width = percent + '%';
+        };
+
+        var hideProgress = function () {
+            progressDiv.style.display = 'none';
+        };
+
+        wavesurfer.on('loading', showProgress);
+        wavesurfer.on('ready', hideProgress);
+        wavesurfer.on('destroy', hideProgress);
+        wavesurfer.on('error', hideProgress);
+
+		progressDiv.style.display = 'none';
+
 var jplayerCssSelector = {
 		videoPlay: '.jp-video-play',
 		play: '.jp-play',

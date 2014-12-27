@@ -16,6 +16,16 @@
 	background-color: red;
 }
 */
+
+#progress-bar {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    margin-top: -10px;
+    left: 5%;
+    width: 90%;
+}
+
 #workSpace {
 	min-height: 100vh;
 }
