@@ -11,22 +11,32 @@ var wavesurfer = Object.create(WaveSurfer);
 
 //button lights
 if (repeat === false) {
-		$( "#replayLED" ).fadeTo( 500,0 );
+		$("#replayLED").fadeTo( 500,0 );
+		$("#replayToggle").removeClass("active");
+	} else {
+		$("#replayToggle").addClass("active");
 	}
 
 if (autoplay === false) {
-		$( "#autoplayLED" ).fadeTo( 500,0 );
+		$("#autoplayLED").fadeTo( 500,0 );
+		$("#autoplayToggle").removeClass("active");
+	} else {
+		$("#autoplayToggle").addClass("active");
 	}
 
 if (duck === false) {
-		$( "#duckLED" ).fadeTo( 500,0 );
+		$("#duckLED").fadeTo( 500,0 );
+		$("#duckToggle").removeClass("active");
+	} else {
+		$("#duckToggle").addClass("active");
 	}
 
 
 wavesurfer.init({
     container: document.querySelector('#waveform'),
     waveColor: 'blue',
-    progressColor: 'purple'
+    progressColor: 'purple',
+	normalize: true
 });
 
 wavesurfer.on('ready', function () {
@@ -117,9 +127,11 @@ $(document).keydown(function(e){
 		if (repeat === false) { 
 			repeat = true; 
 			console.log("Repeat: ON");
+			$(this).addClass("active");
 		} else { 
 			repeat = false;
 			console.log("Repeat: OFF"); 
+			$(this).removeClass("active");
 		}
 		led_trigger($("#replayLED"),repeat,100);
 	});
@@ -129,9 +141,11 @@ $(document).keydown(function(e){
 		if (autoplay === false) { 
 			autoplay = true; 
 			console.log("Autoplay: ON");
+			$(this).addClass("active");
 		} else { 
 			autoplay = false;
-			console.log("Autoplay: OFF"); 
+			console.log("Autoplay: OFF");
+			$(this).removeClass("active"); 
 		}
 		led_trigger($("#autoplayLED"),autoplay,100);
 	});
@@ -140,6 +154,28 @@ $(document).keydown(function(e){
 		duckVolume(volumeMultiplier);
 	});
 
+	$('.backward').click(function() {
+		
+		wavesurfer.skipBackward();
+	});
+	$('.pause').click(function() {
+		
+		wavesurfer.playPause();
+	});
+	$('.play').click(function() {
+		
+		wavesurfer.playPause();
+	});
+	$('.stop').click(function() {
+		
+		wavesurfer.stop();
+	});
+	$('.forward').click(function() {
+		
+		wavesurfer.skipForward();
+	});
+
+
 	function duckVolume() {
 	if (duckTransition === false)
 	{
@@ -147,13 +183,15 @@ $(document).keydown(function(e){
 		var toValue;
 		duckTransition = true;
 		if (volumeMultiplier === 1) { 
-				fromValue = 1; 
-				toValue = 0.25 
-				duck = true;
+			fromValue = 1; 
+			toValue = 0.25 
+			duck = true;
+			$('#duckToggle').addClass("active");
 		} else { 
 			fromValue = volumeMultiplier; 
 			toValue = 1; 
 			duck = false;
+			$('#duckToggle').removeClass("active");
 		}
 		$({someValue:fromValue}).animate({someValue: toValue}, {
 			duration: 500,
@@ -161,7 +199,6 @@ $(document).keydown(function(e){
 			step: function() { // called on every step
 				// Update the element's text with rounded-up value:
 				var tempValue = roundToTwo(this.someValue);
-				console.log(tempValue);
 				wavesurfer.setVolume(tempValue);
 				volumeMultiplier = tempValue
 			},
@@ -191,10 +228,8 @@ var duckTransition = false;
 
 function led_trigger(div, value, time) {
 	if (value) {
-		console.log("LED trigger on");
 		div.fadeTo( time, 1 );
 	} else {
-		console.log("LED trigger off");
 		div.fadeTo( time, 0 );
 	}
 }
