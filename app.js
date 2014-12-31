@@ -92,6 +92,8 @@ function getExtension(path) {
 			break;
 		default:
 			console.log('I broke! Unsupported type?');
+			return 'bad';
+			break;
 	}
 }
 
@@ -134,9 +136,11 @@ function soundDiv(index, name, cssClass, path, type)
 	myDiv.attr('data-filter',path);
 	
 	myDiv.append('<div class="outerCenterDiv"><div class="innerCenterDiv"><p>' + htmlEncode(name) + '</p></div></div>');
-
+	if (type != 'bad')
+	{
 	soundNav(name,cssClass);
 	$('#tileSpace').append('\n\t\t\t' + myDiv);
+	}
 }	
 
 function soundNav(name,cssClass) {
@@ -146,7 +150,9 @@ function soundNav(name,cssClass) {
 		console.log('found');
 	}
 	else { 
-		$('#filterList').before('<li><a id="'+myClass+'" class="filter" data-filter=".'+cssClass.cleanup()+'" href="#">'+ htmlEncode(cssClass) +'</a></li>')
+		//$('#filterList').before('<li><a id="'+myClass+'" class="filter" data-filter=".'+cssClass.cleanup()+'" href="#">'+ htmlEncode(cssClass) +'</a></li>')
+
+		$('#filterList').before('<button type="button" class="btn btn-default btn-lg btn-block filter" id="'+myClass+'" data-dismiss="modal" data-filter=".'+cssClass.cleanup()+'">'+ htmlEncode(cssClass) +'</button>')
 		console.log('not found');
 	}
 	
