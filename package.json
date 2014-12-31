@@ -4,7 +4,6 @@
   "description": "A soundboard generator that outputs static pages for easy use anywhere.",
   "main": "app.js",
   "dependencies": {
-    "jplayer": "~2.9.2",
     "isotope-layout": "~2.1.0",
     "jquery": "~2.1.2",
     "mime": "~1.2.11",

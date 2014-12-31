@@ -21,9 +21,6 @@ var fileName = destPath + '/index.html';
 
 
 
-var jqueryFile = 'node_modules/jquery/dist/jquery.js';
-var jplayerFile = 'node_modules/jplayer/dist/jplayer/jquery.jplayer.js';
-
 String.prototype.cleanup = function() {
    return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
 }
@@ -120,7 +117,6 @@ copyme('node_modules/wavesurfer.js/plugin/wavesurfer.timeline.js', codePath + '/
 copyme('main.css', codePath + '/main.css');
 copyme('main.js', codePath + '/main.js');
 copyme('images/hash.png', codePath + '/hash.png');
-wrench.copyDirSyncRecursive('node_modules/jplayer/dist/skin', codePath + '/skin', {forceDelete: true});
 wrench.copyDirSyncRecursive('node_modules/twitter-bootstrap-3.0.0/dist', codePath + '/bootstrap', {forceDelete: true});
 
 var mylist = wrench.readdirSyncRecursive(destPath + '/sample_sounds');
