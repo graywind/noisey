@@ -1,15 +1,36 @@
 $(document).ready(function(){
 
-	var myVolume = '0.8';
-	var myMuted = false;
+var myVolume = '0.8';
+var myMuted = false;
 
-	//We need more pretty
-	//$('#playerBox').fadeTo(0,0);
-	//$('.soundtile').fadeTo(0,0);
-
-
+//We need more pretty
+//$('#playerBox').fadeTo(0,0);
+//$('.soundtile').fadeTo(0,0);
 
 var wavesurfer = Object.create(WaveSurfer);
+
+//button lights
+if (repeat === false) {
+		$("#replayLED").fadeTo( 500,0 );
+		$("#replayToggle").removeClass("active");
+	} else {
+		$("#replayToggle").addClass("active");
+	}
+
+if (autoplay === false) {
+		$("#autoplayLED").fadeTo( 500,0 );
+		$("#autoplayToggle").removeClass("active");
+	} else {
+		$("#autoplayToggle").addClass("active");
+	}
+
+if (duck === false) {
+		$("#duckLED").fadeTo( 500,0 );
+		$("#duckToggle").removeClass("active");
+	} else {
+		$("#duckToggle").addClass("active");
+	}
+
 
 wavesurfer.init({
     container: document.querySelector('#waveform'),
@@ -18,7 +39,15 @@ wavesurfer.init({
 });
 
 wavesurfer.on('ready', function () {
-    wavesurfer.play();
+	if (autoplay) {
+		wavesurfer.play();
+	}
+});
+
+wavesurfer.on('finish', function () {
+	if (repeat) {
+		wavesurfer.play();
+	}
 });
 
 wavesurfer.on('error', function (err) {
@@ -53,7 +82,7 @@ $(document).keydown(function(e){
 	//console.log('keypress: ' + e.which + '!');
 });
 
-		var progressDiv = document.querySelector('#progress-bar');
+	var progressDiv = document.querySelector('#progress-bar');
         var progressBar = progressDiv.querySelector('.progress-bar');
 
         var showProgress = function (percent) {
@@ -70,32 +99,7 @@ $(document).keydown(function(e){
         wavesurfer.on('destroy', hideProgress);
         wavesurfer.on('error', hideProgress);
 
-		progressDiv.style.display = 'none';
-
-var jplayerCssSelector = {
-		videoPlay: '.jp-video-play',
-		play: '.jp-play',
-		pause: '.jp-pause',
-		stop: '.jp-stop',
-		seekBar: '.jp-seek-bar',
-		playBar: '.jp-play-bar',
-		mute: '.jp-mute',
-		unmute: '.jp-unmute',
-		volumeBar: '.jp-volume-bar',
-		volumeBarValue: '.jp-volume-bar-value',
-		volumeMax: '.jp-volume-max',
-		playbackRateBar: '.jp-playback-rate-bar',
-		playbackRateBarValue: '.jp-playback-rate-bar-value',
-		currentTime: '.jp-current-time',
-		duration: '.jp-duration',
-		title: '.jp-title',
-		fullScreen: '.jp-full-screen',
-		restoreScreen: '.jp-restore-screen',
-		repeat: '.jp-repeat',
-		repeatOff: '.jp-repeat-off',
-		gui: '.jp-gui',
-		noSolution: '.jp-no-solution'
-	}
+	progressDiv.style.display = 'none';
 
 	var $container = $('#tileSpace');
 	$container.isotope({
@@ -112,45 +116,79 @@ var jplayerCssSelector = {
 	});
 
 	$('.soundtile').click(function() {
-		console.log(this.dataset);
-			//$('#playerBox').fadeTo(500,1);
-			var info = this.dataset;
-			/*$("#jquery_jplayer_1").jPlayer("destroy");
-			console.log(info);
-		    var jplayerConfig = {};
-			jplayerConfig[info.type] = info.path;
-			jplayerConfig['title'] = info.name;
-			console.log(jplayerConfig);
-		    $('#jquery_jplayer_1').jPlayer({
-				ready: function (event) {
-						$(this).jPlayer("setMedia", jplayerConfig).jPlayer("play");
-					},
-				volumechange: function (event) {
-                        myVolume = event.jPlayer.options.volume,
-                        myMuted = event.jPlayer.options.muted;
-                },
-				
-				/// Loop after player
-				// ended: function() {
-				//	$(this).jPlayer("play");
-				//},
-				swfPath: '/src',
-				solution: 'html, flash',
-				supplied: info.type,
-				preload: 'metadata',
-				volume: myVolume,
-				muted: myMuted,
-				backgroundColor: '#000000',
-				cssSelectorAncestor: '#jp_container_1',
-				cssSelector: jplayerCssSelector,
-				errorAlerts: false,
-				warningAlerts: false
-			});*/
-	wavesurfer.load(info.path);
+		//$('#playerBox').fadeTo(500,1);
+		var info = this.dataset;
+		wavesurfer.load(info.path);
+	});
 
+	$('#replayToggle').click(function() {
+		
+		if (repeat === false) { 
+			repeat = true; 
+			console.log("Repeat: ON");
+			$(this).addClass("active");
+		} else { 
+			repeat = false;
+			console.log("Repeat: OFF"); 
+			$(this).removeClass("active");
+		}
+		led_trigger($("#replayLED"),repeat,100);
 	});
 	
-	//$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
+	$('#autoplayToggle').click(function() {
+		
+		if (autoplay === false) { 
+			autoplay = true; 
+			console.log("Autoplay: ON");
+			$(this).addClass("active");
+		} else { 
+			autoplay = false;
+			console.log("Autoplay: OFF");
+			$(this).removeClass("active"); 
+		}
+		led_trigger($("#autoplayLED"),autoplay,100);
+	});
+	$('#duckToggle').click(function() {
+		
+		duckVolume(volumeMultiplier);
+	});
+
+	function duckVolume() {
+	if (duckTransition === false)
+	{
+		var fromValue;
+		var toValue;
+		duckTransition = true;
+		if (volumeMultiplier === 1) { 
+			fromValue = 1; 
+			toValue = 0.25 
+			duck = true;
+			$('#duckToggle').addClass("active");
+		} else { 
+			fromValue = volumeMultiplier; 
+			toValue = 1; 
+			duck = false;
+			$('#duckToggle').removeClass("active");
+		}
+		$({someValue:fromValue}).animate({someValue: toValue}, {
+			duration: 500,
+			easing:'swing', // can be anything
+			step: function() { // called on every step
+				// Update the element's text with rounded-up value:
+				var tempValue = roundToTwo(this.someValue);
+				console.log(tempValue);
+				wavesurfer.setVolume(tempValue);
+				volumeMultiplier = tempValue
+			},
+			done: function() {
+				duckTransition = false;
+			},
+			start: function() {
+				led_trigger($("#duckLED"),duck,500);
+			}
+		});
+	}
+}
 });
 
 // Window load will ensure images are in place if that is a thing
@@ -159,3 +197,27 @@ $(window).load(function() {
        $(this).delay((i + 1) * 25).fadeTo("slow",1);
     });
 });
+
+var repeat = false;
+var autoplay = true;
+var volumeMultiplier = 1;
+var duck = false;
+var duckTransition = false;
+
+function led_trigger(div, value, time) {
+	if (value) {
+		console.log("LED trigger on");
+		div.fadeTo( time, 1 );
+	} else {
+		console.log("LED trigger off");
+		div.fadeTo( time, 0 );
+	}
+}
+
+
+
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
+

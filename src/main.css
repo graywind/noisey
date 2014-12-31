@@ -6,16 +6,6 @@
 	background-color: ghostwhite;
 	opacity: 0.95;
 }
-/*
-#bottomTest {
-	position: absolute;
-	bottom: 0;
-	height: 11%;
-	width: 100%;
-	min-height: 160px;
-	background-color: red;
-}
-*/
 
 #progress-bar {
     position: absolute;
@@ -27,7 +17,9 @@
 }
 
 #workSpace {
+	padding-top: 60px;
 	min-height: 100vh;
+	padding-bottom: 160px;
 }
 
 #tileSpace {
@@ -77,3 +69,65 @@ p {
 	font-size: 1.25em;
 }
 body { 	background: url(hash.png) repeat; }
+
+.led-red {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #940;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #F00 0 -1px 9px, #F00 0 2px 12px;
+    z-index: 10;
+}
+
+.led-yellow {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #A90;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #DD0 0 -1px 9px, #DD0 0 2px 12px;
+    z-index: 10;
+}
+
+.led-green {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #690;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 12px;
+    z-index: 10;
+}
+
+.led-blue {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #4AB;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #06F 0 2px 14px;
+    z-index: 10;
+}
+
+.led-dark {
+    margin: 20px auto;
+    width: 12px;
+    height: 12px;
+    background-color: #222;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 3px 1px, inset #000 0 -1px 9px, #222 0 0px 0px;
+}
+
+.navbar-led {  
+    position: absolute;
+    margin: 0;
+}
+
+.led-wrapper {
+    margin: 6px 0 0 12px;
+    width: 12px;
+    height: 12px;
+}
+
+

@@ -10,7 +10,6 @@
 		<script type="text/javascript" src="src/jquery.min.js"></script>
 		<script type="text/javascript" src="src/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="src/isotope.pkgd.min.js"></script>
-		<script type="text/javascript" src="src/jquery.jplayer.min.js"></script>
 		<script type="text/javascript" src="src/wavesurfer.min.js"></script>
 		<script type="text/javascript" src="src/wavesurfer.timeline.js"></script>
 		<script type="text/javascript" src="src/main.js"></script>
@@ -18,7 +17,7 @@
 	<body>
 		
 		<div id="workSpace">
-		<nav class="navbar navbar-default" role="navigation">
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
 		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -32,8 +31,8 @@
 
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-			<li class="active"><a href="#" class="filter" data-filter="*">Show All <span class="sr-only">(current)</span></a></li>
-			<li><a id="filterToggle-burps" class="filter" data-filter=".burps" href="#">Burps</a></li><li><a id="filterToggle-dial-up" class="filter" data-filter=".dial-up" href="#">Dial Up</a></li><li><a id="filterToggle-floors" class="filter" data-filter=".floors" href="#">Floors</a></li><li><a id="filterToggle-unfilter" class="filter" data-filter=".unfilter" href="#">Unfilter</a></li><div id="filterList"></div>
+			<li><a href="#" class="filter" data-filter="*">Show All </a></li>
+			<li><a href="#" data-toggle="modal" data-target="#FiltersNavModal">Filters</a></li>
 			<li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sort <span class="caret"></span></a>
 			  <ul class="dropdown-menu" role="menu">
@@ -43,9 +42,11 @@
 			    <li><a href="#">Yet</a></li>
 			  </ul>
 			</li>
+			<li id="replayToggle"><a href="#">Repeat <div class="led-wrapper pull-right"><div class="led-dark navbar-led"></div><div id="replayLED" class="led-red navbar-led"></div></div></a></li>
+			<li id="autoplayToggle"><a href="#">Autoplay <div class="led-wrapper pull-right"><div class="led-dark navbar-led"></div><div id="autoplayLED" class="led-red navbar-led"></div></div></a></li>
+			<li id="duckToggle"><a href="#">Duck <div class="led-wrapper pull-right"><div class="led-dark navbar-led"></div><div id="duckLED" class="led-yellow navbar-led"></div></div></a></li>
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-
 		      </ul>
 		    </div>
 		  </div>
@@ -61,44 +62,6 @@
 			<div id="sound-10" class="soundtile unfilter" data-name="Full E-Mail Rummaging" data-path="sample_sounds/Unfilter/Full%20E-Mail%20Rummaging.mp3" data-type="mp3" data-filter="sample_sounds/Unfilter/Full%20E-Mail%20Rummaging.mp3"><div class="outerCenterDiv"><div class="innerCenterDiv"><p>Full E-Mail Rummaging</p></div></div></div>
 		</div>
 		<div id="playerBox">
-<!--		<div id="jquery_jplayer_1" class="jp-jplayer"></div>
-		<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
-			<div class="jp-type-single">
-				<div class="jp-gui jp-interface">
-					<div class="jp-controls">
-						<button class="jp-play" role="button" tabindex="0">play</button>
-						<button class="jp-stop" role="button" tabindex="0">stop</button>
-					</div>
-					<div class="jp-progress">
-						<div class="jp-seek-bar">
-							<div class="jp-play-bar"></div>
-						</div>
-					</div>
-					<div class="jp-volume-controls">
-						<button class="jp-mute" role="button" tabindex="0">mute</button>
-						<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-						<div class="jp-volume-bar">
-							<div class="jp-volume-bar-value"></div>
-						</div>
-					</div>
-					<div class="jp-time-holder">
-						<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-						<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-						<div class="jp-toggles">
-							<button class="jp-repeat" role="button" tabindex="0">repeat</button>
-						</div>
-					</div>
-				</div>
-				<div class="jp-details">
-					<div class="jp-title" aria-label="title">&nbsp;</div>
-				</div>
-				<div class="jp-no-solution">
-					<span>Update Required</span>
-					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-				</div>
-			</div>
-		</div>
-		-->
 		<div id="waveform">
 		<div class="progress progress-striped active" id="progress-bar">
                         <div class="progress-bar progress-bar-info"></div>
@@ -108,6 +71,22 @@
                 <div id="wave-timeline"></div>
 		</div>
 		</div>
+	<div class="modal fade" id="FiltersNavModal" tabindex="-1" role="dialog" aria-labelledby="filterModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#xD7;</span></button>
+        <h4 class="modal-title" id="filterModal">Filter Selection</h4>
+      </div>
+      <div class="modal-body">
+	<button type="button" class="btn btn-default btn-lg btn-block filter" id="filterToggle-burps" data-dismiss="modal" data-filter=".burps">Burps</button><button type="button" class="btn btn-default btn-lg btn-block filter" id="filterToggle-dial-up" data-dismiss="modal" data-filter=".dial-up">Dial Up</button><button type="button" class="btn btn-default btn-lg btn-block filter" id="filterToggle-floors" data-dismiss="modal" data-filter=".floors">Floors</button><button type="button" class="btn btn-default btn-lg btn-block filter" id="filterToggle-unfilter" data-dismiss="modal" data-filter=".unfilter">Unfilter</button><div id="filterList"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 	</body>
 </html>
 
