@@ -35,7 +35,8 @@ if (duck === false) {
 wavesurfer.init({
     container: document.querySelector('#waveform'),
     waveColor: 'blue',
-    progressColor: 'purple'
+    progressColor: 'purple',
+	normalize: true
 });
 
 wavesurfer.on('ready', function () {
@@ -153,6 +154,28 @@ $(document).keydown(function(e){
 		duckVolume(volumeMultiplier);
 	});
 
+	$('.backward').click(function() {
+		
+		wavesurfer.skipBackward();
+	});
+	$('.pause').click(function() {
+		
+		wavesurfer.playPause();
+	});
+	$('.play').click(function() {
+		
+		wavesurfer.playPause();
+	});
+	$('.stop').click(function() {
+		
+		wavesurfer.stop();
+	});
+	$('.forward').click(function() {
+		
+		wavesurfer.skipForward();
+	});
+
+
 	function duckVolume() {
 	if (duckTransition === false)
 	{
@@ -176,7 +199,6 @@ $(document).keydown(function(e){
 			step: function() { // called on every step
 				// Update the element's text with rounded-up value:
 				var tempValue = roundToTwo(this.someValue);
-				console.log(tempValue);
 				wavesurfer.setVolume(tempValue);
 				volumeMultiplier = tempValue
 			},
@@ -206,10 +228,8 @@ var duckTransition = false;
 
 function led_trigger(div, value, time) {
 	if (value) {
-		console.log("LED trigger on");
 		div.fadeTo( time, 1 );
 	} else {
-		console.log("LED trigger off");
 		div.fadeTo( time, 0 );
 	}
 }
